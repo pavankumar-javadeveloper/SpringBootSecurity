@@ -1,1 +1,46 @@
-create a spring boot application from spring initializr(https://start.spring.io/)
+-> create a spring boot application from spring initializr(https://start.spring.io/)
+
+section:5 (creating a simple spring boot app without security-part2):
+=========
+->logging.pattern.console = ${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}) - %msg%n}
+spring.application.name=${SPRING_APP_NAME:spring-boot-security}
+usage this one(${SPRING_APP_NAME) is if any one defined SPRING_APP_NAME this property in env or server it will be used. otherwise "spring-boot-security"
+value will be used.
+-> we can add @Componentscan if we are not following package order.
+
+section:6 Securing SpringBoot basic app using spring Security & static credentials:
+=========
+open SecurityProperties file which is inbuilt file. download source if not. so we can see that class as normal class.
+here we can check the code for basic username and password.
+spring.io-> projects -> springboot -> learn -> reference -> appendix -> CommonApplicationProperties.
+here we have all the properties details.
+https://docs.spring.io/spring-boot/appendix/application-properties/index.html
+
+Section:7 (Say Hello to your new AI coding companion)
+=========
+plugs-> marketspace ->codeium -> download
+codeium is very useful for coders.
+
+Section:12(Demo of Spring Security internal flow - Part 1)
+==========
+logging.level.org.springframework.security=${SPRING_SECURIY_LOG_LEVEL:TRACE}
+Intellij -> Settings -> Build, Execution, Deployment -> Maven -> Importing -> Automatically download.
+here we can check the sources,documentation,annotations.
+so it download the sources,documentation automatically.
+
+filters:
+-------
+AuthorizationFilter
+DefaultLoginPageGeneratingFilter
+AbstractAuthenticationProcessingFilter
+
+above filters will be useful for to display the login page.
+
+after login spring boot security page
+
+open network tab there you can see cookies option.
+there we can find the endpoint.
+once we click on the endpoint we can see the JSESSIONID cookie.
+once login is success spring boot won't ask login page.
+if we change the JSESSIONID value it will get redirect to login page again.
+that means once authentication success if the JSESSIONID is same it won't show login page again.
