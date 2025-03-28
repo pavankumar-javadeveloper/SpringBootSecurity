@@ -1,0 +1,1 @@
+create a spring boot application from spring initializr(https://start.spring.io/)
