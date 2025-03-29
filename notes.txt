@@ -1,0 +1,19 @@
+-> By default , spring security framework protects the all the paths present in the
+web application.This behaviour is due to the code present in the method
+defaultSecurityFilterChain(HttpSecurity http) of class SpringBootWebSecurityConfiguration
+Section 20:(How to disable formLogin and httpBasicAuthentication)
+===========
+-> when we enable the form login( http.formLogin(withDefaults());) UsernamePasswordAuthenticationFilter will takes care the
+   extracting the username name password.
+   if we disable  http.formLogin -> UsernamePasswordAuthenticationFilter will not extract username&pwd.
+-> when we are using basic type of login, BasicAuthenticationFilter will take care the extracting the username and password.
+
+Section 21:(httpBasic authentication testing using postman)
+===========
+select the postman folder, we can add the script.
+pm.request.url.protocol="http";
+pm.request.url.host="localhost";
+pm.request.url.port="8080"
+--
+we can select the variable
+ex:{{baseUrl}}/myLoans
