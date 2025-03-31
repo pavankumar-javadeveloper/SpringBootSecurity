@@ -1,0 +1,28 @@
+Section:29(Understanding JdbcUserDetailsManager & creating User inside the DB)
+==========
+--> jdbcUserDetailsManager extends JdbcDaoImpl
+in JdbcDaoImpl class we have loadUserByUsername(String username) method.
+
+@Override
+public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {}
+
+@Override
+public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		List<UserDetails> users = loadUsersByUsername(username);
+}
+debug above method to understand the flow.
+
+Section:30(Using JdbcUserDetailsManager to perform authentication)
+==========
+if we want to use JdbcUserDetailsManager we need to add the below dependencies.
+1. Jdbc API dependency.
+2. database dependency (ex: oracle,mysql)
+3. jpa dependency.
+
+===
+let's say when we create custom class which implements UserDetailsService. that time below bean is optional.
+ @Bean
+public UserDetailsService userDetailsService(DataSource dataSource) {
+return new JdbcUserDetailsManager(dataSource);
+}
+

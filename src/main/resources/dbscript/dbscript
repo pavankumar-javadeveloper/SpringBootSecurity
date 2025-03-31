@@ -1,0 +1,41 @@
+CREATE TABLE users (
+    username VARCHAR2(50) NOT NULL PRIMARY KEY,
+    password VARCHAR2(500) NOT NULL,
+    enabled NUMBER(1) NOT NULL
+);
+
+CREATE TABLE authorities (
+    username VARCHAR2(50) NOT NULL,
+    authority VARCHAR2(50) NOT NULL,
+    CONSTRAINT fk_authorities_users FOREIGN KEY (username) REFERENCES users (username)
+);
+
+CREATE UNIQUE INDEX ix_auth_username ON authorities (username, authority);
+
+MERGE INTO users u
+USING (SELECT 'user' AS username, '{noop}EazyBytes@12345' AS password, 1 AS enabled FROM dual) src
+ON (u.username = src.username)
+WHEN NOT MATCHED THEN
+INSERT (username, password, enabled)
+VALUES (src.username, src.password, src.enabled);
+
+MERGE INTO authorities a
+USING (SELECT 'user' AS username, 'read' AS authority FROM dual) src
+ON (a.username = src.username AND a.authority = src.authority)
+WHEN NOT MATCHED THEN
+INSERT (username, authority)
+VALUES (src.username, src.authority);
+
+MERGE INTO users u
+USING (SELECT 'admin' AS username, '{bcrypt}$2a$12$88.f6upbBvy0okEa7OfHFuorV29qeK.sVbB9VQ6J6dWM1bW6Qef8m' AS password, 1 AS enabled FROM dual) src
+ON (u.username = src.username)
+WHEN NOT MATCHED THEN
+INSERT (username, password, enabled)
+VALUES (src.username, src.password, src.enabled);
+
+MERGE INTO authorities a
+USING (SELECT 'admin' AS username, 'admin' AS authority FROM dual) src
+ON (a.username = src.username AND a.authority = src.authority)
+WHEN NOT MATCHED THEN
+INSERT (username, authority)
+VALUES (src.username, src.authority);
